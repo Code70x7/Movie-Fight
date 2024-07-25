@@ -1,3 +1,10 @@
 const fetchData = async () => {
-    const repsonse = await axios.get('http://www.omdbapi.com/');
-}
+    const response = await axios.get('http://www.omdbapi.com/', {
+        params: {
+            apikey: '332a1af0',
+            s: 'avengers'
+        }
+    });
+    console.log(response.data);
+};
+fetchData();
