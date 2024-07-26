@@ -5,7 +5,7 @@ const fetchData = async (searchTerm) => {
         //params attaches query string(appends) these on the end of the url
         params: {
             apikey: '332a1af0',
-            s: 'avengers'
+            s: searchTerm
         }
     });
     //data is the parameter to the response object
@@ -15,8 +15,22 @@ const fetchData = async (searchTerm) => {
 //fetchData();
 
 const input = document.querySelector('input');
-input.addEventListener('input', (event) => {
+let timeoutId;
+//calling onInput many times in a row (typing out "Avenger")
+const onInput = (event) => {
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+    }
     //can take this variable -event.target.value and pass it into fetchData
     // going to call fetchData event.target.value;
-    fetchData(event.target.value);
-});
+    timeoutId = setTimeout(() => {
+        //second time they push the key it will be defined- it will stop
+
+        // in one second call fetchData
+        fetchData(event.target.value);
+    }, 1000)
+
+};
+input.addEventListener('input', onInput);
+
+// can look up by going to console, Network, XHR (requests only from JS code)
